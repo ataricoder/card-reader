@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Credit Card Scanner Dany</title>
+    <!--jquery cdn-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <!--cardswipe api, link in git-->
+    <script type="text/javascript" src="dist/jquery.cardswipe.js"></script>
+    <!--bootstrap cdn-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!--link to styleguide-->
+    <link rel="stylesheet" href="style.css">
+    <!--google fonts cdn-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+  </head>
+  <body>
+      <!--bootstrap Navbar dark linked-->
+      <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand headerCredit" href="#">Credit Card Scanner Dany</a>
+      </nav>
+
+      <!--div to group all main content-->
+      <div class="mainContent">
+
+        <!--div to group link to git repository for which we use the API-->
+        <div class="card text-white bg-dark">
+        <div class="card-body">
+          <a href="https://github.com/CarlRaymond/jquery.cardswipe" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Made with this Git API</a>
+        </div>
+      </div>
+
+      <!--breaks-->
+      <br>
+      <br>
+
+      <!--div to group link to 'Status' and 'Scan data' results from scanning the card, data should be parsed-->
+      <div class="card text-white bg-dark">
+      <div class="card-body">
+        <div class="result">
+      		<ul id="properties">
+      		</ul>
+      		<h2>Status: <span id="status"></span></h2>
+          <h2>Scan data:</h2>
+      	</div>
+      </div>
+      </div>
+
+      <!--breaks-->
+      <br>
+      <br>
+
+      <!--div to group all input fields, to enter data manually-->
+      <div class="card text-white bg-dark">
+      <div class="card-body">
+        <form>
+        <!--input fields for card number-->
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input type="number" class="form-control" id="cardNumber" placeholder="Enter card number here">
+        </div>
+
+        <!--breaks-->
+        <br>
+
+        <!--input fields for cardholder's name-->
+        <div class="form-group">
+          <label for="exampleInputEmail1">Cardholder's Name</label>
+          <input type="email" class="form-control" id="cardholdersName" placeholder="Enter full name here">
+        </div>
+
+        <!--breaks-->
+        <br>
+
+        <!--start form group for exp. date input-->
+        <form>
+          <label for="expirationDate">Expiration Date </label>
+          <div class="form-row">
+            <div class="col">
+              <input class="form-control" type="number" placeholder="MM" maxlength="2"></input>
+            </div>
+            <span>/</span>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="YY" maxlength="2"></input>
+            </div>
+          </div>
+        </form>
+
+        <!--breaks-->
+        <br>
+
+
+        <!--div to group CVV-->
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input type="number" class="form-control" id="cvvInput" maxlength="3" placeholder="Enter CVV here">
+        </div>
+
+        <!--breaks-->
+        <br>
+
+        <!--submit button-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <!--finish form group-->
+        </form>
+
+      <!--close card-->
+      </div>
+      </div>
+
+      <!--breaks-->
+      <br>
+      <br>
+
+      <!--paragraph with my name-->
+      <p>
+        Made by Daniel Munoz
+      </p>
+
+      <!--close mainContent div-->
+      </div>
+
+
+
+
+      <script type="text/javascript">
+
+      // Called on a successful scan, where one of the parsers recognizes the card data.
+  		var success = function (data) {
+  			$("#status").text("Success!");
+
+  			$("#properties").empty();
+
+  			// Iterate properties of parsed data
+  			for (var key in data) {
+  				if (data.hasOwnProperty(key)) {
+  					var text = key + ': ' + data[key];
+  					$("#properties").append('<li class="data">' + text + '</li>');
+  				}
+  			}
+  		}
+
+  		var error = function () {
+  			$("#status").text("Failed!");
+  			$(".line").text("");
+  		}
+
+  		// Initialize the plugin with default parser and callbacks.
+  		//
+  		// Set debug to true to watch the characters get captured and the state machine transitions
+  		// in the javascript console. This requires a browser that supports the console.log function.
+  		//
+  		// Set firstLineOnly to true to invoke the parser after scanning the first line. This will speed up the
+  		// time from the start of the scan to invoking your success callback.
+  		$.cardswipe({
+  			firstLineOnly: false,
+  			complete: success,
+  			parsers: [ "visa", "mastercard", "amex", "discover", "generic" ],
+  			error: error,
+  			debug: true
+  		});
+
+      </script>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+
+</html>

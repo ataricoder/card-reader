@@ -1,0 +1,9 @@
+.headerCredit {
+  color: white !important;
+  font-size: 30px;
+}
+.mainContent {
+  padding: 20px !important;
+  font-size: 20px !important;
+  height: 100% !important;
+}
