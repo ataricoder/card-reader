@@ -1,0 +1,26 @@
+{
+  "name": "card-reader",
+  "version": "1.0.0",
+  "description": "uses an external card reader to read and input card info into a web app",
+  "main": "card-reader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danysexymexy/card-reader.git"
+  },
+  "keywords": [
+    "card",
+    "reader",
+    "javascript",
+    "jquery",
+    "credit"
+  ],
+  "author": "Daniel Munoz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danysexymexy/card-reader/issues"
+  },
+  "homepage": "https://github.com/danysexymexy/card-reader#readme"
+}
