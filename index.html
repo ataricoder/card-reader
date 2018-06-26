@@ -6,7 +6,7 @@
     <!--jquery cdn-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <!--cardswipe api, link in git-->
-    <script type="text/javascript" src="dist/jquery.cardswipe.js"></script>
+    <script type="text/javascript" src="jquery.cardswipe-master/dist/jquery.cardswipe.js"></script>
     <!--bootstrap cdn-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <!--link to styleguide-->
@@ -38,10 +38,8 @@
       <div class="card text-black bg-light statusCard">
       <div class="card-body">
         <div class="result">
-      		<ul id="properties">
-      		</ul>
       		<h2>Status: <span id="status"></span></h2>
-          <h2>Scan data:</h2>
+          <h2 class="scanningDynamic" id="scanningDynamic"></h2>
       	</div>
       </div>
       </div>
@@ -57,7 +55,7 @@
         <!--input fields for card number-->
         <div class="form-group">
           <label for="cardNumber">Card Number</label>
-          <input type="number" class="form-control" id="cardNumber" placeholder="Enter card number here">
+          <input type="number" class="form-control" name="account" id="account"  placeholder="Enter card number here">
         </div>
 
         <!--breaks
@@ -65,8 +63,15 @@
 
         <!--input fields for cardholder's name-->
         <div class="form-group">
-          <label for="exampleInputEmail1">Cardholder's Name</label>
-          <input type="email" class="form-control" id="cardholdersName" placeholder="Enter full name here">
+          <label for="firstLastName">Cardholder's Name </label>
+          <div class="form-row">
+            <div class="col">
+              <input class="form-control" type="text" placeholder="First Name" name="firstName" id="firstName" ></input>
+            </div>
+            <div class="col">
+              <input class="form-control" type="text" placeholder="Last Name" name="lastName" id="lastName" ></input>
+            </div>
+          </div>
         </div>
 
         <!--breaks
@@ -77,11 +82,11 @@
           <label for="expirationDate">Expiration Date </label>
           <div class="form-row">
             <div class="col">
-              <input class="form-control" type="number" placeholder="MM" maxlength="2"></input>
+              <input class="form-control" name="expMonth" id="expMonth" type="number" placeholder="MM" maxlength="2"></input>
             </div>
             <span>/</span>
             <div class="col">
-              <input class="form-control" type="number" placeholder="YY" maxlength="2"></input>
+              <input class="form-control" name="expYear" id="expYear" type="number" placeholder="YY" maxlength="2"></input>
             </div>
           </div>
         </div>
@@ -93,8 +98,8 @@
         <!--div to group CVV-->
 
         <div class="form-group">
-          <label for="cvv">CVV</label>
-          <input type="number" class="form-control" id="cvvInput" maxlength="3" placeholder="Enter CVV here">
+          <label for="cardType">Card Type</label>
+          <input type="text" name="type" id="type" class="form-control" placeholder="Enter card type here">
         </div>
 
         <!--breaks-->
@@ -113,8 +118,8 @@
       <div class="card text-black bg-light nameCard">
       <div class="card-body">
         <div class="result">
-          <h2>Why I did this thing</h2>
-          <p>After watching a long line of parents trying to process payments, and student volunteers having to manually input credit card information into the software, I played around a bit with the credit card readers in my free time. We have many of these readers, that are currently not in use due to scanners replacing them. These readers simulate a keyboard, and can therefore be programmed so that scanning a card could possibly trigger a callback function that allows a web app to act on the scanned data. I wanted to see if I could accomplish this without the need to have any dependecies. I wanted to make this as simple and easy to integrate as possible.</p>
+          <h2>Extra Info</h2>
+
           <br>
           <a class="btn btn-secondary btn-lg btn-block" href="https://github.com/danysexymexy/credit-card-scan" role="button">Github Repo</a>
         </div>
@@ -137,7 +142,7 @@
 
       <div class="card text-black bg-light textCard">
         <div class="card-body">
-          <h2>How I made it</h2>
+          <h2>Quickstart</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
@@ -160,7 +165,6 @@
   				return;
 
   			// Copy data fields to form
-  			$("#honorific").val(data.honorific);
   			$("#firstName").val(data.firstName);
   			$("#lastName").val(data.lastName);
   			$("#account").val(data.account);
@@ -173,12 +177,13 @@
 
       //delete current animation, and animate a 'scanning...' with same bootstrap font as index.html
       var scanstart = function () {
-  			$("#overlay").fadeIn(200);
+  			$("#scanningDynamic").html("Scanning...");
   		};
 
       //add succesful scan and animate it green or some shit like that
       var scanend = function () {
-        $("#overlay").fadeOut(200);
+        $("#scanningDynamic").html("Success");
+        $("#scanningDynamic").css("color", "green");
       };
 
 
@@ -197,13 +202,15 @@
   			}
 
 
-  			$("#success").fadeIn().delay(3000).fadeOut();
+  			//$("#success").fadeIn().delay(3000).fadeOut();
+        $("#scanningDynamic").html("Success");
   		}
 
 
       //if it fucks up
       var failure = function () {
-  			$("#failure").fadeIn().delay(1000).fadeOut();
+  			$("#scanningDynamic").html("Failure");
+        $("#scanningDynamic").css("color", "red");
   		}
 
 

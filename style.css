@@ -65,3 +65,8 @@ body {
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px !important;
   text-align: left !important;
 }
+
+.btn-outline-primary {
+  border: 1px solid #ced4da !important;
+  color: #495057 !important;
+}
